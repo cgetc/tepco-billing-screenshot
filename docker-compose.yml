@@ -1,0 +1,13 @@
+version: '3.7'
+
+services:
+  puppeteer:
+    build: 
+      context: .
+    container_name: puppeteer-chrome
+    image: puppeteer-chrome-linux
+    cap_add:
+      - SYS_ADMIN
+    volumes:
+      - ./src:/home/pptruser/app
+      - ./dest:/home/pptruser/Downloads
