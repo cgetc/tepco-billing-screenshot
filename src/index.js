@@ -1,8 +1,9 @@
 var puppeteer =　require('puppeteer');
 
+const screenshotFilepath = '/home/pptruser/Downloads/screenshot.png';
 const env = (name) => process.env[name] || '';
 
-const captureTepcoBilling = async () => {
+(async () => {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
   const waitOptions = {timeout: 30000};
@@ -46,11 +47,7 @@ const captureTepcoBilling = async () => {
 
     await page.waitForNavigation();
   } finally {
-    await page.screenshot({path: '/home/pptruser/Downloads/example.png', fullPage: true});
+    await page.screenshot({path: screenshotFilepath, fullPage: true});
     await browser.close();
   }
-};
-
-(async () => {
-    await captureTepcoBilling();
 })();
