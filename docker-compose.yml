@@ -11,3 +11,5 @@ services:
     volumes:
       - ./src:/home/pptruser/app
       - ./dest:/home/pptruser/Downloads
+    working_dir: /home/pptruser/app
+    command: node ./index.js

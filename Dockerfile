@@ -37,5 +37,7 @@ RUN groupadd -r pptruser && useradd -r -g pptruser -G audio,video pptruser \
 # Run everything after as non-privileged user.
 USER pptruser
 
+COPY src/. /home/pptruser/app/
+
 ENTRYPOINT ["dumb-init", "--"]
 CMD ["google-chrome-unstable"]
