@@ -40,4 +40,4 @@ USER pptruser
 COPY src/. /home/pptruser/app/
 
 ENTRYPOINT ["dumb-init", "--"]
-CMD ["google-chrome-unstable"]
+CMD ["node", "/home/pptruser/app/index.js"]
