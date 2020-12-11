@@ -4,7 +4,7 @@ const screenshotFilepath = '/home/pptruser/Downloads/screenshot.png';
 const env = (name) => process.env[name] || '';
 
 (async () => {
-  const browser = await puppeteer.launch();
+  const browser = await puppeteer.launch({args: ['--no-sandbox', '--disable-setuid-sandbox']});
   const page = await browser.newPage();
   const waitOptions = {timeout: 30000};
   try {
