@@ -33,12 +33,11 @@ RUN npm i puppeteer
 #     && mkdir -p /home/pptruser/Downloads \
 #     && chown -R pptruser:pptruser /home/pptruser \
 #     && chown -R pptruser:pptruser /node_modules
-RUN mkdir -p /home/pptruser/Downloads
 
 # Run everything after as non-privileged user.
 # USER pptruser
 
-COPY src/. /home/pptruser/app/
+COPY src/. /app/
 
 ENTRYPOINT ["dumb-init", "--"]
-CMD ["node", "/home/pptruser/app/index.js"]
+CMD ["node", "/app/index.js"]

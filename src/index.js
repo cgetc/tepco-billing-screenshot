@@ -1,6 +1,6 @@
 var puppeteer =　require('puppeteer');
 
-const screenshotFilepath = '/home/pptruser/Downloads/screenshot.png';
+const screenshotFilepath = '/github/workspace/screenshot.png';
 const env = (name) => process.env[name] || '';
 
 (async () => {
