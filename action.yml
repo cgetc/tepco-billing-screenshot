@@ -1,0 +1,103 @@
+name: 'TEPCO billing screenshot'
+description: 'Take screenshot TEPCO billing'
+author: cgetc
+branding:
+  color: yellow
+  icon: sun
+inputs:
+  officeCode:
+    description: '事業所コード'
+    required: true
+  visitNumber1:
+    description: 'お客さま番号1'
+    required: true
+  visitNumber2:
+    description: 'お客さま番号2'
+    required: true
+  visitNumber3:
+    description: 'お客さま番号3'
+    required: true
+  visitNumber4:
+    description: 'お客さま番号4'
+    required: true
+  zipCode1:
+    description: '郵便番号1'
+    required: true
+  zipCode2:
+    description: '郵便番号2'
+    required: true
+  prefecture:
+    description: '都道府県'
+    required: true
+  city:
+    description: '市区町村'
+    required: true
+  address1:
+    description: '住所1'
+    required: true
+  address2:
+    description: '住所2'
+    required: true
+  addressBanch:
+    description: '住所 番地'
+    required: true
+  addressGou:
+    description: '住所 号'
+    required: true
+  apartment:
+    description: '住所 建物名'
+  addressTou:
+    description: '住所 棟'
+  addressRoomNm:
+    description: '住所 部屋番号'
+  options:
+    description: '区分。一般の家庭: 1, 会社・店舗: 0'
+    required: true
+  firstName:
+    description: 'セイ 一般の家庭のみ'
+  lastName:
+    description: 'メイ 一般の家庭のみ'
+  companyName:
+    description: 'カイシャメイ 会社・店舗のみ'
+  departmentName:
+    description: 'ブモンメイ 会社・店舗のみ'
+  phoneNumber1:
+    description: '電話番号1'
+    required: true
+  phoneNumber2:
+    description: '電話番号2'
+    required: true
+  phoneNumber3:
+    description: '電話番号3'
+    required: true
+outputs:
+  month:
+    description: '使用月'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  env:
+    OFFICE_CODE: ${{ inputs.officeCode }}
+    VISIT_NUMBER1: ${{ inputs.visitNumber1 }}
+    VISIT_NUMBER2: ${{ inputs.visitNumber2 }}
+    VISIT_NUMBER3: ${{ inputs.visitNumber3 }}
+    VISIT_NUMBER4: ${{ inputs.visitNumber4 }}
+    ZIP_CODE1: ${{ inputs.zipCode1 }}
+    ZIP_CODE2: ${{ inputs.zipCode2 }}
+    PREFECTURE: ${{ inputs.prefecture }}
+    CITY: ${{ inputs.city }}
+    ADDRESS1: ${{ inputs.address1 }}
+    ADDRESS2: ${{ inputs.address2 }}
+    ADDRESS_BANCHI: ${{ inputs.addressBanch }}
+    ADDRESS_GOU: ${{ inputs.addressGou }}
+    APARTMENT: ${{ inputs.apartment }}
+    ADDRESS_TOU: ${{ inputs.addressTou }}
+    ADDRESS_ROOM_NM: ${{ inputs.addressRoomNm }}
+    OPTIONS: ${{ inputs.options }}
+    FIRST_NAME: ${{ inputs.firstName }}
+    LAST_NAME: ${{ inputs.lastName }}
+    COMPANY_NAME: ${{ inputs.companyName }}
+    DEPARTMENT_NAME: ${{ inputs.departmentName }}
+    PHONE_NUMBER1: ${{ inputs.phoneNumber1 }}
+    PHONE_NUMBER2: ${{ inputs.phoneNumber2 }}
+    PHONE_NUMBER3: ${{ inputs.phoneNumber3 }}
