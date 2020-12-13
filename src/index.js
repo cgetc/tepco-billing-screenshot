@@ -7,6 +7,7 @@ const env = (name) => process.env[name] || '';
   const browser = await puppeteer.launch({args: ['--no-sandbox', '--disable-setuid-sandbox']});
   const page = await browser.newPage();
   const waitOptions = {timeout: 30000};
+
   try {
     await page.goto('https://www.kenshin.tepco.co.jp/Certification');
     await page.type('input[name="officeCode"]', env('OFFICE_CODE'));
@@ -47,6 +48,7 @@ const env = (name) => process.env[name] || '';
 
     await page.waitForNavigation();
   } finally {
+    console.log('take screenshot ' + screenshotFilepath);
     await page.screenshot({path: screenshotFilepath, fullPage: true});
     await browser.close();
   }
