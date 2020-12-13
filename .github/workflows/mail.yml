@@ -1,0 +1,77 @@
+name: tepco-billing-screenshot
+
+on:
+  schedule:
+    - cron:  '0 9 1 * *'
+
+jobs:
+  screenshot:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Take Screenshot TEPCO billing
+        id: screenshot
+        uses: ./
+        with:
+          officeCode: ${{ secrets.OFFICE_CODE }}
+          visitNumber1: ${{ secrets.VISIT_NUMBER1 }}
+          visitNumber2: ${{ secrets.VISIT_NUMBER2 }}
+          visitNumber3: ${{ secrets.VISIT_NUMBER3 }}
+          visitNumber4: ${{ secrets.VISIT_NUMBER4 }}
+          zipCode1: ${{ secrets.ZIP_CODE1 }}
+          zipCode2: ${{ secrets.ZIP_CODE2 }}
+          prefecture: ${{ secrets.PREFECTURE }}
+          city: ${{ secrets.CITY }}
+          address1: ${{ secrets.ADDRESS1 }}
+          address2: ${{ secrets.ADDRESS2 }}
+          addressBanch: ${{ secrets.ADDRESS_BANCHI }}
+          addressGou: ${{ secrets.ADDRESS_GOU }}
+          apartment: ${{ secrets.APARTMENT }}
+          addressTou: ${{ secrets.ADDRESS_TOU }}
+          addressRoomNm: ${{ secrets.ADDRESS_ROOM_NM }}
+          options: ${{ secrets.OPTIONS }}
+          firstName: ${{ secrets.FIRST_NAME }}
+          lastName: ${{ secrets.LAST_NAME }}
+          companyName: ${{ secrets.COMPANY_NAME }}
+          departmentName: ${{ secrets.DEPARTMENT_NAME }}
+          phoneNumber1: ${{ secrets.PHONE_NUMBER1 }}
+          phoneNumber2: ${{ secrets.PHONE_NUMBER2 }}
+          phoneNumber3: ${{ secrets.PHONE_NUMBER3 }}
+      - name: 'Upload Artifact'
+        uses: actions/upload-artifact@v2
+        with:
+          name: screenshot
+          path: screenshot.png
+  mail:
+    runs-on: ubuntu-latest
+    needs: screenshot
+    outputs:
+      month: ${{ steps.info.outputs.month }}
+    steps:
+      - name: 'Download Artifact'
+        uses: actions/download-artifact@v2
+        with:
+          name: screenshot
+      - name:
+        run: |
+          month=$(date -d '1 months ago' '+%Y年%m月')
+          echo "USED_MONTH=$month" >> $GITHUB_ENV
+      - name: Send mail
+        uses: dawidd6/action-send-mail@v2
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          username: ${{ secrets.MAIL_USERNAME }}
+          password: ${{ secrets.MAIL_PASSWORD }}
+          subject: ${{ env.USED_MONTH }}の電気料金
+          body: |
+            <!DOCTYPE html>
+            <html>
+            <body>
+            添付の画像をご確認してください。
+            </body>
+            </html>
+          content_type: text/html
+          to: ${{ secrets.MAIL_TO }}
+          from: ${{ secrets.MAIL_FROM }}
+          attachments: screenshot.png
