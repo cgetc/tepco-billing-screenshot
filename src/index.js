@@ -6,7 +6,19 @@ const env = (name) => process.env[name] || '';
 (async () => {
   const browser = await puppeteer.launch({args: ['--no-sandbox', '--disable-setuid-sandbox']});
   const page = await browser.newPage();
-  const waitOptions = {timeout: 30000};
+
+  const selectValue = (select, value) => {
+    for (var i = 0; i < select.options.length; i++ ) {
+      const option = select.options[i]
+      if (option.textContent == value) {
+        select.value = option.value;
+        break;
+      }
+    }
+    const event = document.createEvent('HTMLEvents');
+    event.initEvent('change', false, true);
+    select.dispatchEvent(event);
+  };
 
   try {
     await page.goto('https://www.kenshin.tepco.co.jp/Certification');
@@ -17,14 +29,19 @@ const env = (name) => process.env[name] || '';
     await page.type('input[name="visitNumber4"]', env('VISIT_NUMBER4'));
     await page.type('input[name="zipCode1"]', env('ZIP_CODE1'));
     await page.type('input[name="zipCode2"]', env('ZIP_CODE2'));
-    await page.waitForSelector('#searchAddress:not(:disabled)', waitOptions);
-    await page.select('select[name="prefectureCode"]', env('PREFECTURE_CODE'));
-    await page.waitForSelector('select[name="cityCode"]:not(:disabled)', waitOptions);
-    await page.select('select[name="cityCode"]', env('CITY_CODE'));
-    await page.waitForSelector('select[name="address1Code"]:not(:disabled)', waitOptions);
-    await page.select('select[name="address1Code"]', env('ADDRESS1_CODE'));
-    await page.waitForSelector('select[name="address2Code"]:not(:disabled)', waitOptions);
-    await page.select('select[name="address2Code"]', env('ADDRESS2_CODE'));
+    await page.waitForSelector('#searchAddress:not(:disabled)');
+    await page.waitForSelector('select[name="prefectureCode"] option[value="01"]');
+    const prefectureSelect = await page.$('select[name="prefectureCode"]');
+    await page.evaluate(selectValue, prefectureSelect, env('PREFECTURE'));
+    await page.waitForSelector('select[name="cityCode"]:not(:disabled)');
+    const citySelect = await page.$('select[name="cityCode"]');
+    await page.evaluate(selectValue, citySelect, env('CITY'));
+    await page.waitForSelector('select[name="address1Code"]:not(:disabled)');
+    const address1Select = await page.$('select[name="address1Code"]');
+    await page.evaluate(selectValue, address1Select, env('ADDRESS1'));
+    await page.waitForSelector('select[name="address2Code"]:not(:disabled)');
+    const address2Select = await page.$('select[name="address2Code"]');
+    await page.evaluate(selectValue, address2Select, env('ADDRESS2'));
     await page.type('input[name="addressBanchi"]', env('ADDRESS_BANCHI'));
     await page.type('input[name="addressGou"]', env('ADDRESS_GOU'));
     await page.type('input[name="apartment"]', env('APARTMENT'));

@@ -26,17 +26,17 @@ inputs:
   zipCode2:
     description: '郵便番号2'
     required: true
-  prefectureCode:
-    description: '都道府県コード'
+  prefecture:
+    description: '都道府県'
     required: true
-  cityCode:
-    description: '市区町村コード'
+  city:
+    description: '市区町村'
     required: true
-  address1Code:
-    description: '住所1コード'
+  address1:
+    description: '住所1'
     required: true
-  address2Code:
-    description: '住所2コード'
+  address2:
+    description: '住所2'
     required: true
   addressBanch:
     description: '住所 番地'
@@ -84,10 +84,10 @@ runs:
     VISIT_NUMBER4: ${{ inputs.visitNumber4 }}
     ZIP_CODE1: ${{ inputs.zipCode1 }}
     ZIP_CODE2: ${{ inputs.zipCode2 }}
-    PREFECTURE_CODE: ${{ inputs.prefectureCode }}
-    CITY_CODE: ${{ inputs.cityCode }}
-    ADDRESS1_CODE: ${{ inputs.address1Code }}
-    ADDRESS2_CODE: ${{ inputs.address2Code }}
+    PREFECTURE: ${{ inputs.prefecture }}
+    CITY: ${{ inputs.city }}
+    ADDRESS1: ${{ inputs.address1 }}
+    ADDRESS2: ${{ inputs.address2 }}
     ADDRESS_BANCHI: ${{ inputs.addressBanch }}
     ADDRESS_GOU: ${{ inputs.addressGou }}
     APARTMENT: ${{ inputs.apartment }}

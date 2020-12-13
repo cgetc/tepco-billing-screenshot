@@ -19,10 +19,10 @@ jobs:
           visitNumber4: ${{ secrets.VISIT_NUMBER4 }}
           zipCode1: ${{ secrets.ZIP_CODE1 }}
           zipCode2: ${{ secrets.ZIP_CODE2 }}
-          prefectureCode: ${{ secrets.PREFECTURE_CODE }}
-          cityCode: ${{ secrets.CITY_CODE }}
-          address1Code: ${{ secrets.ADDRESS1_CODE }}
-          address2Code: ${{ secrets.ADDRESS2_CODE }}
+          prefecture: ${{ secrets.PREFECTURE }}
+          city: ${{ secrets.CITY }}
+          address1: ${{ secrets.ADDRESS1 }}
+          address2: ${{ secrets.ADDRESS2 }}
           addressBanch: ${{ secrets.ADDRESS_BANCHI }}
           addressGou: ${{ secrets.ADDRESS_GOU }}
           apartment: ${{ secrets.APARTMENT }}
