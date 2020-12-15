@@ -1,9 +1,8 @@
 name: tepco-billing-screenshot
 
 on:
-  push:
-    branches:
-      - main
+  schedule:
+    - cron:  '0 9 1 * *'
 
 jobs:
   screenshot:
@@ -43,3 +42,36 @@ jobs:
         with:
           name: screenshot
           path: screenshot.png
+  mail:
+    runs-on: ubuntu-latest
+    needs: screenshot
+    outputs:
+      month: ${{ steps.info.outputs.month }}
+    steps:
+      - name: 'Download Artifact'
+        uses: actions/download-artifact@v2
+        with:
+          name: screenshot
+      - name:
+        run: |
+          month=$(date -d '1 months ago' '+%Y年%m月')
+          echo "USED_MONTH=$month" >> $GITHUB_ENV
+      - name: Send mail
+        uses: dawidd6/action-send-mail@v2
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          username: ${{ secrets.MAIL_USERNAME }}
+          password: ${{ secrets.MAIL_PASSWORD }}
+          subject: ${{ env.USED_MONTH }}の電気料金
+          body: |
+            <!DOCTYPE html>
+            <html>
+            <body>
+            添付の画像をご確認してください。
+            </body>
+            </html>
+          content_type: text/html
+          to: ${{ secrets.MAIL_TO }}
+          from: ${{ secrets.MAIL_FROM }}
+          attachments: screenshot.png
