@@ -1,7 +1,9 @@
 name: tepco-billing-screenshot
 
 on:
-  - push
+  push:
+    branches:
+      - main
 
 jobs:
   screenshot:
