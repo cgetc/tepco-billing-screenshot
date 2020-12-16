@@ -2,6 +2,7 @@ var puppeteer =　require('puppeteer');
 
 const screenshotFilepath = '/github/workspace/screenshot.png';
 const env = (name) => process.env[name] || '';
+const removeAlphabet = str => str.replace(/[a-zA-Zａ-ｚＡ-Ｚ]/g, '');
 
 (async () => {
   const browser = await puppeteer.launch({args: ['--no-sandbox', '--disable-setuid-sandbox']});
@@ -44,7 +45,7 @@ const env = (name) => process.env[name] || '';
     await page.evaluate(selectValue, address2Select, env('ADDRESS2'));
     await page.type('input[name="addressBanchi"]', env('ADDRESS_BANCHI'));
     await page.type('input[name="addressGou"]', env('ADDRESS_GOU'));
-    await page.type('input[name="apartment"]', env('APARTMENT'));
+    await page.type('input[name="apartment"]', removeAlphabet(env('APARTMENT')));  // 全角半角問わず英字は入力エラーになる
     await page.type('input[name="addressTou"]', env('ADDRESS_TOU'));
     await page.type('input[name="addressRoomNm"]', env('ADDRESS_ROOM_NM'));
     if (env('OPTIONS') === '1') {
