@@ -5,7 +5,7 @@
 
 ## 使用方法
 
-リポジトリをForkして、以下をSecretに登録してください。
+リポジトリをForkして、以下をSecretsに登録してください。
 
 実際に入力する値は https://www.kenshin.tepco.co.jp/Certification を参考にしてください。
 
