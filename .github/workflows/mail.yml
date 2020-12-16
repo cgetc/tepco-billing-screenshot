@@ -2,7 +2,7 @@ name: tepco-billing-screenshot
 
 on:
   schedule:
-    - cron:  '0 14 16 * *'
+    - cron:  '10 14 16 * *'
 
 jobs:
   screenshot:
