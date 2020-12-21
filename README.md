@@ -1,7 +1,7 @@
 # tepco-billing-screenshot
-東京電力エナジーパートナー 電気料金・ご使用量の確認ページのフォームを入力し、結果をスナップショットを保存します。
+東京電力エナジーパートナー 電気料金・ご使用量の確認ページのフォームを入力し、結果のスクリーンショットを保存します。
 
-毎月1日18時にスナップショットを添付して、指定した宛先にメールを送信します。
+毎月1日18時にスクリーンショットを添付して、指定した宛先にメールを送信します。
 
 ## 使用方法
 
@@ -19,7 +19,7 @@
 |ZIP_CODE1| 郵便番号1 | |
 |ZIP_CODE2| 郵便番号2 | |
 |PREFECTURE| 都道府県名 | 選択肢の項目名(数値の値ではない) |
-|city| 市区町村名 | 選択肢の項目名(数値の値ではない) |
+|CITY| 市区町村名 | 選択肢の項目名(数値の値ではない) |
 |ADDRESS1| 住所1 | 選択肢の項目名(数値の値ではない) |
 |ADDRESS2| 住所2 | 選択肢の項目名(数値の値ではない) |
 |ADDRESS_BANCHI| 番地 | |
@@ -35,8 +35,8 @@
 |PHONE_NUMBER1| 電話番号1 | |
 |PHONE_NUMBER2| 電話番号2 | |
 |PHONE_NUMBER3| 電話番号3 | |
-|MAIL_HOST| メールのSMTPホスト | GMailの場合はsmtp.gmail.com |
+|MAIL_HOST| メールのSMTPホスト | Gmailの場合はsmtp.gmail.com |
 |MAIL_USERNAME| メールのSMTPアカウント | |
-|MAIL_PASSWORD| メールのSMTPパスワード | GMailで二段階認証を有効にしている場合は[App Password](https://support.google.com/mail/answer/185833?hl=ja)を入力 |
+|MAIL_PASSWORD| メールのSMTPパスワード | Gmailで二段階認証を有効にしている場合は[App Password](https://support.google.com/mail/answer/185833?hl=ja)を入力 |
 |MAIL_TO| メールの宛先 | |
 |MAIL_FROM| メールの送信元 | |
