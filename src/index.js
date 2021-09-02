@@ -22,7 +22,12 @@ const removeAlphabet = str => str.replace(/[a-zA-Zａ-ｚＡ-Ｚ]/g, '');
   };
 
   try {
-    await page.goto('https://www.kenshin.tepco.co.jp/Certification');
+    await page.goto('https://www.kenshin.tepco.co.jp/');
+    await page.click('.notes-open-top');
+    await page.waitForSelector('#nextButton');
+    await page.click('#nextButton');
+    await page.waitForNavigation();
+
     await page.type('input[name="officeCode"]', env('OFFICE_CODE'));
     await page.type('input[name="visitNumber1"]', env('VISIT_NUMBER1'));
     await page.type('input[name="visitNumber2"]', env('VISIT_NUMBER2'));
