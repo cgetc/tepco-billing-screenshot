@@ -23,11 +23,19 @@ const env = (name) => process.env[name] || '';
 
   try {
     console.log('go to top page.');
-    await page.goto('https://www.kenshin.tepco.co.jp/');
-    await page.click('.notes-open-top');
-    await page.waitForSelector('#nextButton');
-    await page.click('#nextButton');
-    await page.waitForNavigation({waitUntil: 'domcontentloaded', timeout: 12000});
+    let i = 0; 
+    while (true) {
+      try {
+        await page.goto('https://www.kenshin.tepco.co.jp/');
+        await page.click('.notes-open-top');
+        await page.waitForSelector('#nextButton');
+        await page.click('#nextButton');
+        await page.waitForNavigation({waitUntil: 'domcontentloaded'});
+      } catch (e) {
+        if (i >= 3) throw e;
+        ++i;
+      }
+    }
 
     console.log('input name.');
     if (env('OPTIONS') === '1') {
