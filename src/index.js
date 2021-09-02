@@ -30,7 +30,8 @@ const env = (name) => process.env[name] || '';
         await page.click('.notes-open-top');
         await page.waitForSelector('#nextButton');
         await page.click('#nextButton');
-        await page.waitForNavigation({waitUntil: 'domcontentloaded'});
+        await page.waitForNavigation({waitUntil: 'domcontentloaded', timeout: 120000});
+        break;
       } catch (e) {
         if (i >= 3) throw e;
         ++i;
