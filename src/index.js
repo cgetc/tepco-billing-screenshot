@@ -66,6 +66,8 @@ const env = (name) => process.env[name] || '';
     await page.evaluate(form => { form.submit(); }, form);
 
     await page.waitForNavigation();
+  } catch (e) {
+    console.error(e);
   } finally {
     console.log('take screenshot ' + screenshotFilepath);
     await page.screenshot({path: screenshotFilepath, fullPage: true});

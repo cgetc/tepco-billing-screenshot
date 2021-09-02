@@ -30,6 +30,9 @@
 |LAST_NAME| 名 | 名を全角カタカナで入力。区分が1の場合のみ必須 |
 |COMPANY_NAME| 会社名 | 会社名を全角カタカナで入力。区分が0の場合のみ必須 |
 |DEPARTMENT_NAME| 部署名 | 部署名を全角カタカナで入力。区分が0の場合のみ必須 |
+|PHONE_NUMBER1| 電話番号1 | 事業所コードがわからない場合。※未対応|
+|PHONE_NUMBER2| 電話番号2 | 事業所コードがわからない場合。※未対応|
+|PHONE_NUMBER3| 電話番号3 | 事業所コードがわからない場合。※未対応|
 |MAIL_HOST| メールのSMTPホスト | Gmailの場合はsmtp.gmail.com |
 |MAIL_USERNAME| メールのSMTPアカウント | |
 |MAIL_PASSWORD| メールのSMTPパスワード | Gmailで二段階認証を有効にしている場合は[App Password](https://support.google.com/mail/answer/185833?hl=ja)を入力 |

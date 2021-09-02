@@ -1,4 +1,4 @@
-name: tepco-billing-screenshot
+name: snapshot-and-mail
 
 on:
   workflow_dispatch:
@@ -27,8 +27,6 @@ jobs:
           address2: ${{ secrets.ADDRESS2 }}
           addressBanch: ${{ secrets.ADDRESS_BANCHI }}
           addressGou: ${{ secrets.ADDRESS_GOU }}
-          apartment: ${{ secrets.APARTMENT }}
-          addressTou: ${{ secrets.ADDRESS_TOU }}
           addressRoomNm: ${{ secrets.ADDRESS_ROOM_NM }}
           options: ${{ secrets.OPTIONS }}
           firstName: ${{ secrets.FIRST_NAME }}
