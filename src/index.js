@@ -21,6 +21,7 @@ const env = (name) => process.env[name] || '';
   };
 
   try {
+    await page.setDefaultNavigationTimeout(60000); 
     console.log('go to top page.');
     await page.goto('https://www.kenshin.tepco.co.jp/');
     await page.click('.notes-open-top');
