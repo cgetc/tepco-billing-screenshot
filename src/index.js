@@ -6,7 +6,6 @@ const env = (name) => process.env[name] || '';
 (async () => {
   const browser = await puppeteer.launch({args: ['--no-sandbox', '--disable-setuid-sandbox']});
   const page = await browser.newPage();
-  await page.setDefaultNavigationTimeout(60000);
 
   const selectValue = (select, value) => {
     for (var i = 0; i < select.options.length; i++ ) {
@@ -22,6 +21,8 @@ const env = (name) => process.env[name] || '';
   };
 
   try {
+    await page.setDefaultNavigationTimeout(60000);
+
     console.log('go to top page.');
     let i = 0; 
     while (true) {
