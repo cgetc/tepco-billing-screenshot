@@ -44,10 +44,6 @@ inputs:
   addressGou:
     description: '住所 号'
     required: true
-  apartment:
-    description: '住所 建物名'
-  addressTou:
-    description: '住所 棟'
   addressRoomNm:
     description: '住所 部屋番号'
   options:
@@ -63,13 +59,10 @@ inputs:
     description: 'ブモンメイ 会社・店舗のみ'
   phoneNumber1:
     description: '電話番号1'
-    required: true
   phoneNumber2:
     description: '電話番号2'
-    required: true
   phoneNumber3:
     description: '電話番号3'
-    required: true
 outputs:
   month:
     description: '使用月'
