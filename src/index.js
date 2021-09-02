@@ -21,13 +21,12 @@ const env = (name) => process.env[name] || '';
   };
 
   try {
-    await page.setDefaultNavigationTimeout(60000); 
     console.log('go to top page.');
     await page.goto('https://www.kenshin.tepco.co.jp/');
     await page.click('.notes-open-top');
     await page.waitForSelector('#nextButton');
     await page.click('#nextButton');
-    await page.waitForNavigation();
+    await page.waitForNavigation({waitUntil: 'domcontentloaded', timeout: 12000});
 
     console.log('input name.');
     if (env('OPTIONS') === '1') {
@@ -71,7 +70,7 @@ const env = (name) => process.env[name] || '';
     const form = await page.$('.identificationForm');
     await page.evaluate(form => { form.submit(); }, form);
 
-    await page.waitForNavigation();
+    await page.waitForNavigation({waitUntil: 'domcontentloaded'});
   } catch (e) {
     console.error(e);
   } finally {
