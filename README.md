@@ -24,17 +24,12 @@
 |ADDRESS2| 住所2 | 選択肢の項目名(数値の値ではない) |
 |ADDRESS_BANCHI| 番地 | |
 |ADDRESS_GOU| 号 | |
-|APARTMENT| 建物名 | |
-|ADDRESS_TOU| 棟 | |
 |ADDRESS_ROOM_NM| 部屋番号 | |
 |OPTIONS| 区分 | 一般の家庭の場合は1。会社・店舗の場合は0 |
 |FIRST_NAME| 姓 | 姓を全角カタカナで入力。区分が1の場合のみ必須 |
 |LAST_NAME| 名 | 名を全角カタカナで入力。区分が1の場合のみ必須 |
 |COMPANY_NAME| 会社名 | 会社名を全角カタカナで入力。区分が0の場合のみ必須 |
 |DEPARTMENT_NAME| 部署名 | 部署名を全角カタカナで入力。区分が0の場合のみ必須 |
-|PHONE_NUMBER1| 電話番号1 | |
-|PHONE_NUMBER2| 電話番号2 | |
-|PHONE_NUMBER3| 電話番号3 | |
 |MAIL_HOST| メールのSMTPホスト | Gmailの場合はsmtp.gmail.com |
 |MAIL_USERNAME| メールのSMTPアカウント | |
 |MAIL_PASSWORD| メールのSMTPパスワード | Gmailで二段階認証を有効にしている場合は[App Password](https://support.google.com/mail/answer/185833?hl=ja)を入力 |
