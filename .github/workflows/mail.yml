@@ -1,4 +1,4 @@
-name: tepco-billing-screenshot
+name: snapshot-and-mail
 
 on:
   workflow_dispatch:

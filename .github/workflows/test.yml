@@ -1,4 +1,4 @@
-name: tepco-billing-screenshot
+name: screenshot
 
 on:
   push:
