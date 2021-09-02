@@ -21,7 +21,7 @@ const env = (name) => process.env[name] || '';
   };
 
   try {
-    await page.setDefaultNavigationTimeout(60000);
+    await page.setDefaultTimeout(60000);
 
     console.log('go to top page.');
     let i = 0; 
