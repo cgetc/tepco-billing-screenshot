@@ -3,6 +3,18 @@ var puppeteer =　require('puppeteer');
 const screenshotFilepath = '/github/workspace/screenshot.png';
 const env = (name) => process.env[name] || '';
 
+const retry = async (run) => {
+  let i = 0; 
+  while (true) {
+    try {
+      return await run();
+    } catch (e) {
+      if (i >= 3) throw e;
+      ++i;
+    }
+  }
+};
+
 (async () => {
   const browser = await puppeteer.launch({args: ['--no-sandbox', '--disable-setuid-sandbox']});
   const page = await browser.newPage();
@@ -21,23 +33,14 @@ const env = (name) => process.env[name] || '';
   };
 
   try {
-    await page.setDefaultTimeout(60000);
-
     console.log('go to top page.');
-    let i = 0; 
-    while (true) {
-      try {
+    await retry(async () => {
         await page.goto('https://www.kenshin.tepco.co.jp/');
         await page.click('.notes-open-top');
         await page.waitForSelector('#nextButton');
         await page.click('#nextButton');
         await page.waitForNavigation({waitUntil: 'domcontentloaded', timeout: 120000});
-        break;
-      } catch (e) {
-        if (i >= 3) throw e;
-        ++i;
-      }
-    }
+    });
 
     console.log('input name.');
     if (env('OPTIONS') === '1') {
@@ -51,24 +54,36 @@ const env = (name) => process.env[name] || '';
     }
 
     console.log('input address.');
-    await page.type('input[name="zipCode1"]', env('ZIP_CODE1'));
-    await page.type('input[name="zipCode2"]', env('ZIP_CODE2'));
-    await page.waitForSelector('#searchAddress:not(:disabled)');
-    await page.waitForSelector('select[name="prefectureCode"] option[value="01"]');
-    const prefectureSelect = await page.$('select[name="prefectureCode"]');
-    await page.evaluate(selectValue, prefectureSelect, env('PREFECTURE'));
-    await page.waitForSelector('select[name="cityCode"]:not(:disabled)');
-    const citySelect = await page.$('select[name="cityCode"]');
-    await page.evaluate(selectValue, citySelect, env('CITY'));
-    await page.waitForSelector('select[name="address1Code"]:not(:disabled)');
-    const address1Select = await page.$('select[name="address1Code"]');
-    await page.evaluate(selectValue, address1Select, env('ADDRESS1'));
-    await page.waitForSelector('select[name="address2Code"]:not(:disabled)');
-    const address2Select = await page.$('select[name="address2Code"]');
-    await page.evaluate(selectValue, address2Select, env('ADDRESS2'));
-    await page.type('input[name="addressBanchi"]', env('ADDRESS_BANCHI'));
-    await page.type('input[name="addressGou"]', env('ADDRESS_GOU'));
-    await page.type('input[name="addressRoomNm"]', env('ADDRESS_ROOM_NM'));
+
+    await retry(async () => {
+      await page.type('input[name="zipCode1"]', env('ZIP_CODE1'));
+      await page.type('input[name="zipCode2"]', env('ZIP_CODE2'));
+      await page.waitForSelector('#searchAddress:not(:disabled)');
+      await page.waitForSelector('select[name="prefectureCode"] option[value="01"]');
+    });
+
+    await retry(async () => {
+      const prefectureSelect = await page.$('select[name="prefectureCode"]');
+      await page.evaluate(selectValue, prefectureSelect, env('PREFECTURE'));
+      await page.waitForSelector('select[name="cityCode"]:not(:disabled)');
+    });
+    await retry(async () => {
+      const citySelect = await page.$('select[name="cityCode"]');
+      await page.evaluate(selectValue, citySelect, env('CITY'));
+      await page.waitForSelector('select[name="address1Code"]:not(:disabled)');
+    });
+    await retry(async () => {
+      const address1Select = await page.$('select[name="address1Code"]');
+      await page.evaluate(selectValue, address1Select, env('ADDRESS1'));
+      await page.waitForSelector('select[name="address2Code"]:not(:disabled)');
+    });
+    await retry(async () => {
+      const address2Select = await page.$('select[name="address2Code"]');
+      await page.evaluate(selectValue, address2Select, env('ADDRESS2'));
+      await page.type('input[name="addressBanchi"]', env('ADDRESS_BANCHI'));
+      await page.type('input[name="addressGou"]', env('ADDRESS_GOU'));
+      await page.type('input[name="addressRoomNm"]', env('ADDRESS_ROOM_NM'));
+    });
 
     console.log('input code.');
     await page.type('input[name="officeCode"]', env('OFFICE_CODE'));
