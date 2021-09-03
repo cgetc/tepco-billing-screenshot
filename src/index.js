@@ -56,24 +56,36 @@ const retry = async (run) => {
     }
 
     console.log('input address.');
-    await page.type('input[name="zipCode1"]', env('ZIP_CODE1'));
-    await page.type('input[name="zipCode2"]', env('ZIP_CODE2'));
-    await page.waitForSelector('#searchAddress:not(:disabled)');
-    await page.waitForSelector('select[name="prefectureCode"] option[value="01"]');
-    const prefectureSelect = await page.$('select[name="prefectureCode"]');
-    await page.evaluate(selectValue, prefectureSelect, env('PREFECTURE'));
-    await page.waitForSelector('select[name="cityCode"]:not(:disabled)');
-    const citySelect = await page.$('select[name="cityCode"]');
-    await page.evaluate(selectValue, citySelect, env('CITY'));
-    await page.waitForSelector('select[name="address1Code"]:not(:disabled)');
-    const address1Select = await page.$('select[name="address1Code"]');
-    await page.evaluate(selectValue, address1Select, env('ADDRESS1'));
-    await page.waitForSelector('select[name="address2Code"]:not(:disabled)');
-    const address2Select = await page.$('select[name="address2Code"]');
-    await page.evaluate(selectValue, address2Select, env('ADDRESS2'));
-    await page.type('input[name="addressBanchi"]', env('ADDRESS_BANCHI'));
-    await page.type('input[name="addressGou"]', env('ADDRESS_GOU'));
-    await page.type('input[name="addressRoomNm"]', env('ADDRESS_ROOM_NM'));
+
+    await retry(async () => {
+      await page.type('input[name="zipCode1"]', env('ZIP_CODE1'));
+      await page.type('input[name="zipCode2"]', env('ZIP_CODE2'));
+      await page.waitForSelector('#searchAddress:not(:disabled)');
+      await page.waitForSelector('select[name="prefectureCode"] option[value="01"]');
+    });
+
+    await retry(async () => {
+      const prefectureSelect = await page.$('select[name="prefectureCode"]');
+      await page.evaluate(selectValue, prefectureSelect, env('PREFECTURE'));
+      await page.waitForSelector('select[name="cityCode"]:not(:disabled)');
+    });
+    await retry(async () => {
+      const citySelect = await page.$('select[name="cityCode"]');
+      await page.evaluate(selectValue, citySelect, env('CITY'));
+      await page.waitForSelector('select[name="address1Code"]:not(:disabled)');
+    });
+    await retry(async () => {
+      const address1Select = await page.$('select[name="address1Code"]');
+      await page.evaluate(selectValue, address1Select, env('ADDRESS1'));
+      await page.waitForSelector('select[name="address2Code"]:not(:disabled)');
+    });
+    await retry(async () => {
+      const address2Select = await page.$('select[name="address2Code"]');
+      await page.evaluate(selectValue, address2Select, env('ADDRESS2'));
+      await page.type('input[name="addressBanchi"]', env('ADDRESS_BANCHI'));
+      await page.type('input[name="addressGou"]', env('ADDRESS_GOU'));
+      await page.type('input[name="addressRoomNm"]', env('ADDRESS_ROOM_NM'));
+    });
 
     console.log('input code.');
     await page.type('input[name="officeCode"]', env('OFFICE_CODE'));
