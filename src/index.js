@@ -33,8 +33,6 @@ const retry = async (run) => {
   };
 
   try {
-    await page.setDefaultTimeout(60000);
-
     console.log('go to top page.');
     await retry(async () => {
         await page.goto('https://www.kenshin.tepco.co.jp/');
