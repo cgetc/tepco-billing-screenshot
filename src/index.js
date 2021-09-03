@@ -3,6 +3,18 @@ var puppeteer =　require('puppeteer');
 const screenshotFilepath = '/github/workspace/screenshot.png';
 const env = (name) => process.env[name] || '';
 
+const retry = async (run) => {
+  let i = 0; 
+  while (true) {
+    try {
+      return await run();
+    } catch (e) {
+      if (i >= 3) throw e;
+      ++i;
+    }
+  }
+};
+
 (async () => {
   const browser = await puppeteer.launch({args: ['--no-sandbox', '--disable-setuid-sandbox']});
   const page = await browser.newPage();
@@ -24,20 +36,13 @@ const env = (name) => process.env[name] || '';
     await page.setDefaultTimeout(60000);
 
     console.log('go to top page.');
-    let i = 0; 
-    while (true) {
-      try {
+    await retry(async () => {
         await page.goto('https://www.kenshin.tepco.co.jp/');
         await page.click('.notes-open-top');
         await page.waitForSelector('#nextButton');
         await page.click('#nextButton');
         await page.waitForNavigation({waitUntil: 'domcontentloaded', timeout: 120000});
-        break;
-      } catch (e) {
-        if (i >= 3) throw e;
-        ++i;
-      }
-    }
+    });
 
     console.log('input name.');
     if (env('OPTIONS') === '1') {
